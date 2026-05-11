@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-k8s-deployment
+  namespace: hello-ns
+spec:
+  revisionHistoryLimit: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app/component: backend-api
+  template:
+    metadata:
+      name: hello-k8s
+      labels:
+        app/name: hello-k8s
+        app/component: backend-api
+    spec:
+      containers:
+      - name: hellok8scontainer
+        image: sonofdarkahmet/hello-k8s:v2.0.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 5000
