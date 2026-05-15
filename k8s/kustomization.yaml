@@ -6,5 +6,5 @@ resources:
   - hello-k8s-namespace.yaml
   - hello-k8s-deployment.yaml
   - hello-k8s-service.yaml
-  - hello-k8s-pod.yaml
+  # - hello-k8s-pod.yaml
   - hello-k8s-hpa.yaml

@@ -4,8 +4,8 @@ metadata:
   name: hello-k8s-deployment
   namespace: hello-ns
 spec:
-  revisionHistoryLimit: 2
-  replicas: 3
+  revisionHistoryLimit: 1
+  replicas: 2
   selector:
     matchLabels:
       app/component: backend-api
@@ -18,10 +18,25 @@ spec:
     spec:
       containers:
       - name: hellok8scontainer
-        image: sonofdarkahmet/hello-k8s:v2.0.2
+        image: sonofdarkahmet/hello-k8s:4.0.0
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
         ports:
           - containerPort: 5000
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        readinessProbe:
+          httpGet: 
+            path: /ready
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 5
